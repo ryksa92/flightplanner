@@ -126,11 +126,8 @@ public class Main {
                     String namePassenger = reader.readLine( );
 
                     if (namePassenger.matches(regexOnlyString)) {
-
-                        for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
-                            if (airfieldMap.getValue( ).getFlights( ).containsKey(namePassenger)) {
-                                System.out.printf("The Passenger name of %s is already taken! Define a new one!", airfieldMap.getValue( ).getFlights( ).get(namePassenger));
-                                break;
+                            if (airfields.containsKey(namePassenger)) {
+                                System.out.printf("The Passenger name of %s is already taken! Define a new one!", airfields.get(namePassenger));
                             } else {
                                 passenger.setName(namePassenger);
                                 System.out.println( );
@@ -150,15 +147,15 @@ public class Main {
 
                                 System.out.println( );
                                 String assignToFlightCode = reader.readLine( );
-
+                                for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
                                 if (airfieldMap.getValue( ).getFlights( ).containsKey(assignToFlightCode)) {
                                     airfieldMap.getValue( ).getFlights( ).get(assignToFlightCode).addPeople(passenger);
                                     System.out.printf("*** Passenger [%s] has been assigned to the Flight [%s]! ***", passenger.getName( ), airfieldMap.getValue( ).getFlights( ).get(assignToFlightCode).getCode( ));
                                     System.out.println( );
                                     numberOfPassengers++;
-                                    break;
+
                                 } else {
-                                    System.out.println("Could not find this Flight code try again!");sdfs
+                                    System.out.println("Could not find this Flight code try again!");
                                 }
                             }
                         }
