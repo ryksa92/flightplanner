@@ -24,8 +24,8 @@ public class Flight {
     public void printCrew() {
         System.out.println(" -- Crew members: ");
         for (Map.Entry<String, Person> crewMember : people.entrySet( )) {
-            if (crewMember instanceof Crew) {
-                System.out.printf("%s ", crewMember.getValue( ).getName( ));
+            if (crewMember.getClass().isAssignableFrom(Crew.class)) {
+                System.out.print(crewMember.getValue( ).getName( ) + ", ");
             }
         }
     }
@@ -33,8 +33,8 @@ public class Flight {
     public void printPassengers() {
         System.out.println(" -- Passengers: ");
         for (Map.Entry<String, Person> passenger : people.entrySet( )) {
-            if (passenger instanceof Passenger) {
-                System.out.printf("%s, ", passenger.getValue( ).getName( ));
+            if (passenger.getClass().isAssignableFrom(Passenger.class)) {
+                System.out.print(passenger.getValue( ).getName( ) + ", ");
             }
         }
     }
