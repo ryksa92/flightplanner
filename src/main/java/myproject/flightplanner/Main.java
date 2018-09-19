@@ -83,34 +83,29 @@ public class Main {
                     System.out.println("Flight's code: ");
                     String codeFlight = reader.readLine( );
 
-                    for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
-                        if (airfieldMap.getValue( ).getFlights( ).containsKey(codeFlight)) {
-                            System.out.printf("The Flight code of %s is already taken! Define a new one!", airfieldMap.getValue( ).getFlights( ).get(codeFlight).getCode( ));
+                    if (airfields.containsKey(codeFlight)) {
+                        System.out.printf("The Flight code of %s is already taken! Define a new one!", codeFlight);
+                        break;
+                    } else {
+                        flight.setCode(codeFlight);
+                        System.out.println( );
+                        System.out.printf("The flight's code has been set as [%s]. Flight is created, but not assigned to any airfield! Choose one of them below by typing the Airfield's name!", flight.getCode( ));
+                        System.out.println( );
+                        getListAirfields( );
+                        System.out.println( );
+
+                        String assignToAirfieldName = reader.readLine( );
+
+                        if (airfields.containsKey(assignToAirfieldName)) {
+                            airfields.get(assignToAirfieldName).addFlight(flight);
+                            System.out.printf("*** Flight [%s] has been assigned to the airfield [%s]! ***", flight.getCode( ), airfields.get(assignToAirfieldName).getName( ));
+                            numberOfFlights++;
                             break;
                         } else {
-                            flight.setCode(codeFlight);
-
+                            System.out.println("Incorrect airfield name! Try again with only the available airfield names!");
                             System.out.println( );
-                            System.out.printf("The flight's code has been set as [%s]. Flight is created, but not assigned to any airfield! Choose one of them below.", flight.getCode( ));
-                            System.out.println( );
-
-                            getListAirfields( );
-                            System.out.println( );
-
-                            String assignToAirfieldName = reader.readLine( );
-
-                            if (airfields.containsKey(assignToAirfieldName)) {
-                                airfields.get(assignToAirfieldName).addFlight(flight);
-                                System.out.printf("*** Flight [%s] has been assigned to the airfield [%s]! ***", flight.getCode( ), airfields.get(assignToAirfieldName).getName( ));
-                                numberOfFlights++;
-                                break;
-                            } else {
-                                System.out.println("Incorrect airfield name! Try again with only the available airfield names!");
-                                System.out.println( );
-                            }
                         }
                     }
-
                     break;
 
 
@@ -125,42 +120,38 @@ public class Main {
                     System.out.print("Passenger's name (first uppercase, then lowercase alphabets): ");
                     String namePassenger = reader.readLine( );
 
-                    if (namePassenger.matches(regexOnlyString)) {
-                            if (airfields.containsKey(namePassenger)) {
-                                System.out.printf("The Passenger name of %s is already taken! Define a new one!", airfields.get(namePassenger));
-                            } else {
-                                passenger.setName(namePassenger);
+                    if (airfields.containsKey(namePassenger) && namePassenger.matches(regexOnlyString)) {
+                        System.out.printf("The Passenger name of %s is already taken! Define a new one!", airfields.get(namePassenger));
+                    } else if (!namePassenger.matches(regexOnlyString)) {
+                        System.out.println("As a name you must use only characters: first an upper- then lowercase letters! Try again!");
+                    } else {
+                        passenger.setName(namePassenger);
+                        System.out.println( );
+                        System.out.printf("Assign %s's checked bags value (in Kg): ", passenger.getName( ));
+
+                        String bagsPassenger = reader.readLine( );
+                        if (bagsPassenger.matches(regexOnlyNumbers)) {
+                            passenger.setCheckedBagsInKg(Integer.parseInt(bagsPassenger));
+                        }
+
+                        System.out.println(PARSET_MESSAGE);
+                        System.out.println( );
+                        System.out.println("Choose an initiated Flight for the Passenger by the code of the Flight!");
+                        for (Map.Entry<String, AirField> airfields : airfields.entrySet( )) {
+                            airfields.getValue( ).printFlights( );
+                        }
+
+                        System.out.println( );
+                        String assignPassengerToFlightCode = reader.readLine( );
+
+                        for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
+                            if (airfieldMap.getValue( ).getFlights( ).containsKey(assignPassengerToFlightCode)) {
+                                numberOfPassengers++;
+                                airfieldMap.getValue( ).getFlights( ).get(assignPassengerToFlightCode).addPeople(passenger);
+                                System.out.printf("*** Passenger [%s] has been assigned to the Flight [%s]! ***", passenger.getName( ), airfieldMap.getValue( ).getFlights( ).get(assignPassengerToFlightCode).getCode( ));
                                 System.out.println( );
-                                System.out.printf("Assign %s's checked bags value (in Kg): ", passenger.getName( ));
-
-                                String bagsPassenger = reader.readLine( );
-                                if (bagsPassenger.matches(regexOnlyNumbers)) {
-                                    passenger.setCheckedBagsInKg(Integer.parseInt(bagsPassenger));
-                                }
-
-                                System.out.println(PARSET_MESSAGE);
-                                System.out.println( );
-                                System.out.println("Choose an initiated Flight for the Passenger by the code of the Flight!");
-                                for (Map.Entry<String, AirField> airfields : airfields.entrySet( )) {
-                                    airfields.getValue( ).printFlights( );
-                                }
-
-                                System.out.println( );
-                                String assignToFlightCode = reader.readLine( );
-                                for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
-                                if (airfieldMap.getValue( ).getFlights( ).containsKey(assignToFlightCode)) {
-                                    airfieldMap.getValue( ).getFlights( ).get(assignToFlightCode).addPeople(passenger);
-                                    System.out.printf("*** Passenger [%s] has been assigned to the Flight [%s]! ***", passenger.getName( ), airfieldMap.getValue( ).getFlights( ).get(assignToFlightCode).getCode( ));
-                                    System.out.println( );
-                                    numberOfPassengers++;
-
-                                } else {
-                                    System.out.println("Could not find this Flight code try again!");
-                                }
                             }
                         }
-                    } else {
-                        System.out.println("As a name you must use only characters: first an upper- then lowercase letters! Try again!");
                     }
                     break;
 
@@ -172,46 +163,56 @@ public class Main {
                     }
 
                     Crew crewMember = new Crew( );
-                    numberOfCrew++;
-                    System.out.print("Assign the NAME of the crew member: ");
-                    crewMember.setName(reader.readLine( ));
 
-                    boolean looperCrewAdder = true;
-                    while (looperCrewAdder) {
-                        System.out.printf("Choose %s's job-type, type in: p - Pilot, m - Mechanic, a - Flight Attendant, cp - CoPilot", crewMember.getName( ));
-                        System.out.println( );
+                    System.out.print("Crew member's name (first uppercase, then lowercase alphabets): ");
+                    String nameCrew = reader.readLine( );
 
-                        switch (reader.readLine( ).toUpperCase( )) {
-                            case "P":
-                                crewMember.setCrewJob(CrewJob.Pilot);
-                                System.out.println(PARSET_MESSAGE);
-                                break;
+                    if (airfields.containsKey(nameCrew) && nameCrew.matches(regexOnlyString)) {
+                        System.out.printf("The Crew member name of %s is already taken! Define a new one!", airfields.get(nameCrew));
+                    } else if (!nameCrew.matches(regexOnlyString)) {
+                        System.out.println("As a name you must use only characters: first an upper- then lowercase letters! Try again!");
+                    } else {
+                        crewMember.setName(nameCrew);
 
-                            case "M":
-                                crewMember.setCrewJob(CrewJob.Mechanic);
-                                System.out.println(PARSET_MESSAGE);
-                                System.out.println( );
-                                break;
+                        boolean looperCrew = true;
+                        while (looperCrew) {
 
-                            case "CP":
-                                crewMember.setCrewJob(CrewJob.CoPilot);
-                                System.out.println(PARSET_MESSAGE);
-                                System.out.println( );
-                                break;
+                            System.out.printf("Choose %s's job-type, type in: p - Pilot, m - Mechanic, a - Flight Attendant, cp - CoPilot", crewMember.getName( ));
+                            System.out.println( );
+                            switch (reader.readLine( ).toUpperCase( )) {
+                                case "P":
+                                    crewMember.setCrewJob(CrewJob.Pilot);
+                                    System.out.println(PARSET_MESSAGE);
+                                    looperCrew = false;
+                                    break;
 
-                            case "A":
-                                crewMember.setCrewJob(CrewJob.FlightAttendant);
-                                System.out.println(PARSET_MESSAGE);
-                                System.out.println( );
-                                break;
+                                case "M":
+                                    crewMember.setCrewJob(CrewJob.Mechanic);
+                                    System.out.println(PARSET_MESSAGE);
+                                    System.out.println( );
+                                    looperCrew = false;
+                                    break;
 
-                            default:
-                                System.out.println("Incorrect input. Please choose a correct one!");
-                                System.out.println( );
-                                break;
+                                case "CP":
+                                    crewMember.setCrewJob(CrewJob.CoPilot);
+                                    System.out.println(PARSET_MESSAGE);
+                                    System.out.println( );
+                                    looperCrew = false;
+                                    break;
+
+                                case "A":
+                                    crewMember.setCrewJob(CrewJob.FlightAttendant);
+                                    System.out.println(PARSET_MESSAGE);
+                                    System.out.println( );
+                                    looperCrew = false;
+                                    break;
+
+                                default:
+                                    System.out.println("Incorrect input. Please choose a correct one!");
+                                    System.out.println( );
+                                    break;
+                            }
                         }
-
-
                         System.out.println("Choose an initiated Flight for the Crew by the code of the Flight!");
 
                         for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
@@ -219,16 +220,17 @@ public class Main {
                         }
 
                         System.out.println( );
-                        String flightCodeCrew = reader.readLine( );
+                        String assignCrewMemberToFlightCode = reader.readLine( );
 
                         for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
-                            if (airfieldMap.getValue( ).getFlights( ).containsKey(flightCodeCrew)) {
-                                airfieldMap.getValue( ).getFlights( ).get(flightCodeCrew).addPeople(crewMember);
-                                System.out.printf("*** Crew member [%s - %s] has been assigned to the Flight [%s]! ***", crewMember.getName( ), crewMember.getCrewJob( ), airfieldMap.getValue( ).getFlights( ).get(flightCodeCrew).getCode( ));
+                            if (airfieldMap.getValue( ).getFlights( ).containsKey(assignCrewMemberToFlightCode)) {
+                                numberOfCrew++;
+                                airfieldMap.getValue( ).getFlights( ).get(assignCrewMemberToFlightCode).addPeople(crewMember);
+                                System.out.printf("*** Crew member [%s - %s] has been assigned to the Flight [%s]! ***", crewMember.getName( ), crewMember.getCrewJob( ), airfieldMap.getValue( ).getFlights( ).get(assignCrewMemberToFlightCode).getCode( ));
                                 System.out.println( );
-                                looperCrewAdder = false;
                             }
                         }
+
                     }
                     break;
 
@@ -243,13 +245,15 @@ public class Main {
                     System.out.println("----##### The AirPlanner DataBase #####----");
                     System.out.printf("Total number of airfields: %d, flights: %d, passengers: %d, crew members: %d.", numberOfAirfields, numberOfFlights, numberOfPassengers, numberOfCrew);
                     System.out.println( );
+
                     for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
                         System.out.println( );
                         System.out.println("[Airfield : " + airfieldMap.getValue( ).getName( ) + "]");
                         for (Map.Entry<String, Flight> flightMap : airfieldMap.getValue( ).getFlights( ).entrySet( )) {
-                            System.out.print(" - Flight: ");
+                            System.out.println(" - Flight: ");
                             System.out.println("[" + flightMap.getValue( ).getCode( ) + "]");
                             flightMap.getValue( ).printCrew( );
+                            System.out.println();
                             flightMap.getValue( ).printPassengers( );
                         }
                     }
@@ -267,13 +271,10 @@ public class Main {
 
     }
 
-
-    private static void getListAirfields() {                                                           //reading airfields one by one from the ArrayList<AirField> airfields.
-        System.out.println("List of available airfields. Type in the name of one of them to assign flights to it!");
-        System.out.println( );
-        System.out.print("Airfields: ");
+    private static void getListAirfields() {
+        System.out.println("Airfields: ");
         for (Map.Entry<String, AirField> airfieldMap : airfields.entrySet( )) {
-            System.out.printf("[%s] ", airfieldMap.getKey( ));
+            System.out.printf("[%s], ", airfieldMap.getKey( ));
         }
     }
 }
