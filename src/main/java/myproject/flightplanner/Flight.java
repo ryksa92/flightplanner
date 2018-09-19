@@ -22,18 +22,18 @@ public class Flight {
     }
 
     public void printCrew() {
-        System.out.println(" -- Crew members: ");
+        System.out.print(" -- Crew members: ");
         for (Map.Entry<String, Person> crewMember : people.entrySet( )) {
-            if (crewMember.getClass().isAssignableFrom(Crew.class)) {
+            if (crewMember.getValue().getClass().isAssignableFrom(Crew.class)) {
                 System.out.print(crewMember.getValue( ).getName( ) + ", ");
             }
         }
     }
 
     public void printPassengers() {
-        System.out.println(" -- Passengers: ");
+        System.out.print(" -- Passengers: ");
         for (Map.Entry<String, Person> passenger : people.entrySet( )) {
-            if (passenger.getClass().isAssignableFrom(Passenger.class)) {
+            if (passenger.getValue().getClass().isAssignableFrom(Passenger.class)) {
                 System.out.print(passenger.getValue( ).getName( ) + ", ");
             }
         }
