@@ -3,7 +3,7 @@ package myproject.flightplanner;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AirField {
+public class AirField{
 
     private String name;
 
@@ -27,10 +27,14 @@ public class AirField {
 
     public void printFlights() {
         System.out.println( );
-        System.out.println("[Airfield : " + name + "]");
+        System.out.println("[Airport : " + name + "]");
         System.out.print(" - Flights: ");
         for (Map.Entry<String, Flight> flight : flights.entrySet( )) {
             System.out.print(flight.getKey( ) + ",");
         }
+    }
+
+    public boolean isFlightsEmpty () {
+        return flights.isEmpty();
     }
 }
