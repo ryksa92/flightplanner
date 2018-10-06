@@ -1,32 +1,28 @@
 package myproject.flightplanner;
 
-import org.junit.Assert;
 import org.junit.Test;
+import static junit.framework.TestCase.assertEquals;
 
 public class FlightTest {
 
     @Test
-    public void testCorrectNumberOfOfCrew() throws NoNameGivenForPersonException {
+    public void PassengersOnFlightByDefault(){
         Flight flight = new Flight();
 
-        Crew crew1 = new Crew();
-        crew1.setName("Józsi");
-        flight.addPeople(crew1);
-
-        Crew crew2 = new Crew();
-        crew2.setName("Pista");
-        flight.addPeople(crew2);
-
-        Passenger passenger1 = new Passenger();
-        passenger1.setName("Lófasz");
-        flight.addPeople(passenger1);
-
-        Assert.assertEquals(2, flight.getNumbersOfCrew());
+        assertEquals("There are already Passengers in Flight!", 0, flight.getNumbersOfPassengers());
     }
 
-    @Test(expected = NoNameGivenForPersonException.class)
-    public void testNoNameCrew() throws NoNameGivenForPersonException {
+    @Test
+    public void CrewMembersOnFlightByDefault(){
         Flight flight = new Flight();
-        flight.addPeople(new Crew());
+
+        assertEquals("There are already Crew members in Flight!", 0, flight.getNumbersOfCrew());
+    }
+
+    @Test
+    public void FlightHasNoCodeToAssignToFlight(){
+        Flight flight = new Flight();
+
+        assertEquals(null, flight.getCode());
     }
 }

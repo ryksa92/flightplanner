@@ -6,9 +6,9 @@ public enum CrewJob {
     MECHANIC ("Mechanic"),
     FLIGHT_ATTENDANT ("Flight attendant");
 
-    private String crewJob;
+    private String crewJobClass;
 
-    CrewJob(String crewJob){
-        this.crewJob = crewJob;
+    CrewJob(String crewJobClass) {
+        this.crewJobClass = crewJobClass;
     }
 }

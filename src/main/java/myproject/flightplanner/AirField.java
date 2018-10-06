@@ -3,7 +3,7 @@ package myproject.flightplanner;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AirField{
+public class AirField {
 
     private String name;
 
@@ -13,19 +13,27 @@ public class AirField{
         return flights;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
+        if(name.contentEquals("")){
+            throw new NullPointerException("No name airfield");
+        }
         this.name = name;
     }
 
-    public void addFlight(Flight flight) {
+    public void addFlight(Flight flight) throws NoCodeGivenForFlightException {
+        if (flight.getCode( ) == null || flight.getCode().contentEquals("")) throw new NoCodeGivenForFlightException("No code given for Flight");
         flights.put(flight.getCode( ), flight);
     }
 
-    public void printFlights() {
+    public void printFlights() throws NoCodeGivenForFlightException{
+        if (flights.isEmpty()){
+            throw new NoCodeGivenForFlightException("No flights declared.");
+        }
+
         System.out.println( );
         System.out.println("[Airport : " + name + "]");
         System.out.print(" - Flights: ");
@@ -34,7 +42,7 @@ public class AirField{
         }
     }
 
-    public boolean isFlightsEmpty () {
-        return flights.isEmpty();
+    public boolean isFlightsEmpty() {
+        return flights.isEmpty( );
     }
 }
