@@ -5,18 +5,6 @@ import static junit.framework.TestCase.assertEquals;
 
 public class AirFieldTest {
 
-    @Test
-    public void AirfieldDefaultNameIsNull() throws NoNameGivenForAirfieldException{
-        AirField airfield = new AirField( );
-        assertEquals(null, airfield.getName());
-    }
-
-    @Test
-    public void AirfieldDefaultFlightsEmpty(){
-        AirField airfield = new AirField( );
-        assertEquals("Default count of Flights on Airfield isn't empty!", true, airfield.isFlightsEmpty());
-    }
-
     @Test (expected = NoCodeGivenForFlightException.class)
     public void CheckAirfieldIsEmptyOfFlights_NoCode() throws NoCodeGivenForFlightException{
         AirField airfield = new AirField( );
@@ -63,7 +51,7 @@ public class AirFieldTest {
         airfield2.addFlight(flight2);
 
         assertEquals("Adding Flights to Airfield failed!", false, airfield1.isFlightsEmpty());
-        assertEquals("Adding Flights to Airfield failed!", false, airfield1.isFlightsEmpty());
+        assertEquals("Adding Flights to Airfield failed!", false, airfield2.isFlightsEmpty());
     }
 
     @Test
