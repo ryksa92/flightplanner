@@ -6,12 +6,6 @@ import static junit.framework.TestCase.assertEquals;
 public class CrewTest {
 
     @Test
-    public void CrewDefaultNameIsNull(){
-        Crew crew = new Crew();
-        assertEquals("Crew name is not null by default", null, crew.getName());
-    }
-
-    @Test
     public void WrongCrewAssignedName(){
         Crew crew = new Crew();
         crew.setName("Adam");

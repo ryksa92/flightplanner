@@ -5,29 +5,76 @@ import static junit.framework.TestCase.assertEquals;
 
 public class AirFieldTest {
 
-
     @Test
-    public void AirfieldDefaultNameIsNull(){
+    public void AirfieldDefaultNameIsNull() throws NoNameGivenForAirfieldException{
         AirField airfield = new AirField( );
-            assertEquals("Airfield has no defined name!",null, airfield.getName( ));
+        assertEquals(null, airfield.getName());
     }
 
     @Test
-    public void AirfieldDefaultAssignedFlights(){
+    public void AirfieldDefaultFlightsEmpty(){
         AirField airfield = new AirField( );
         assertEquals("Default count of Flights on Airfield isn't empty!", true, airfield.isFlightsEmpty());
-
     }
 
     @Test (expected = NoCodeGivenForFlightException.class)
-    public void AirfieldCheckAssignedFlights() throws NoCodeGivenForFlightException{
+    public void CheckAirfieldIsEmptyOfFlights_NoCode() throws NoCodeGivenForFlightException{
         AirField airfield = new AirField( );
+
         Flight flight = new Flight();
         airfield.addFlight(flight);
-        assertEquals("Airfield without Flights, after assignment!", false, airfield.isFlightsEmpty());
 
+        assertEquals("Airfield is empty (without Flights)!", false, airfield.isFlightsEmpty());
     }
 
+    @Test
+    public void CheckAirfieldIsEmptyOfFlights_WithCode() throws NoCodeGivenForFlightException{
+        AirField airfield = new AirField( );
+        airfield.setName("PC");
 
+        Flight flight1 = new Flight();
+        flight1.setCode("AVC");
 
+        airfield.addFlight(flight1);
+
+        assertEquals("", false, airfield.isFlightsEmpty());
+    }
+
+    @Test (expected = NoCodeGivenForFlightException.class)
+    public void MultipleAirfieldWithAssignedFlightsTest_NoCode() throws NoCodeGivenForFlightException{
+        AirField airfield = new AirField( );
+        Flight flight1 = new Flight();
+        Flight flight2 = new Flight();
+
+        airfield.addFlight(flight1);
+        airfield.addFlight(flight2);
+
+        assertEquals("Adding Flights to Airfield failed!", false, airfield.isFlightsEmpty());
+    }
+
+    @Test (expected = NoCodeGivenForFlightException.class)
+    public void MultipleAirfieldWithAssignedFlightsTest_WithCode() throws NoCodeGivenForFlightException{
+        AirField airfield1 = new AirField( );
+        Flight flight1 = new Flight();
+        AirField airfield2 = new AirField( );
+        Flight flight2 = new Flight();
+
+        airfield1.addFlight(flight1);
+        airfield2.addFlight(flight2);
+
+        assertEquals("Adding Flights to Airfield failed!", false, airfield1.isFlightsEmpty());
+        assertEquals("Adding Flights to Airfield failed!", false, airfield1.isFlightsEmpty());
+    }
+
+    @Test
+    public void AirfieldPrintFlightsTest() throws NoCodeGivenForFlightException{
+        AirField airfield = new AirField( );
+        Flight flight1 = new Flight();
+        flight1.setCode("C");
+        Flight flight2 = new Flight();
+        flight2.setCode("F");
+
+        airfield.addFlight(flight1);
+        airfield.addFlight(flight2);
+    }
 }

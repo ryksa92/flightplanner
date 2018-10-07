@@ -132,7 +132,7 @@ public class Main {
         }
         try {
             airfields.put(airfield.getName( ), airfield);
-        } catch (NullPointerException error) {
+        } catch (NoNameGivenForAirfieldException error) {
             error.getStackTrace( );
         }
         System.out.println( );
@@ -142,7 +142,7 @@ public class Main {
             try {
                 System.out.printf("The Airfield name of %s is already taken! Define a new one!", airfields.get(nameAirfield).getName( ));
                 System.out.println( );
-            } catch (NullPointerException error) {
+            } catch (NoNameGivenForAirfieldException error) {
                 error.getStackTrace( );
             }
         }
@@ -170,7 +170,7 @@ public class Main {
                     try {
                         airfields.get(assignedAirfieldName).addFlight(flight);
                         System.out.printf("$$$ [Flight:%s] has been assigned to [Airport:%s]! $$$", flight.getCode( ), airfields.get(assignedAirfieldName).getName( ));
-                    } catch (NoCodeGivenForFlightException | NullPointerException error) {
+                    } catch (NoCodeGivenForFlightException | NoNameGivenForAirfieldException error) {
                         error.getStackTrace( );
                     }
                     looperFlight = false;
@@ -342,7 +342,7 @@ public class Main {
             System.out.println( );
             try {
                 System.out.println("[Airfield : " + airfieldEntry.getValue( ).getName( ) + "]");
-            } catch (NullPointerException error) {
+            } catch (NoNameGivenForAirfieldException error) {
                 error.getStackTrace( );
             }
 
