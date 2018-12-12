@@ -22,8 +22,7 @@ public class Main {
     }
 }
 
-
-// Basic JAVA code implementation. ToDo: convert this code to SpringBoot App
+// Basic JAVA code implementation. ToDo: first, convert this code to SpringBoot web application!
 
     /*  private static final Logger logger = Logger.getLogger(Main.class.getName( ));
         private static final Logger rootLogger = LogManager.getLogManager( ).getLogger("");
