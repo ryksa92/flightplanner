@@ -14,14 +14,20 @@ public class MainController {
 
     @RequestMapping("/")
     public String index() {
-        LOGGER.info("FlightPlanner Server Introduction.");
-        return "Greetings from SpringBoot";
+        LOGGER.info("FlightPlanner Server Introduction initiated!");
+        return "Greetings from SpringBoot!";
     }
 
-    @RequestMapping("/list-airfields")
+    @RequestMapping("/airfields")
     public String listAirfields() {
-        LOGGER.info("Airfield list created.");
-        return "Airfield list:";
+        LOGGER.info("Airfield list created!");
+        return "Airfield list is : ";
+    }
+
+    @RequestMapping("/airfields/flights")
+    public String listFlights(){
+        LOGGER.info("Flight list created!");
+        return "Flight list is: ";
     }
 
     @PostMapping(path = "/add-airfield")
