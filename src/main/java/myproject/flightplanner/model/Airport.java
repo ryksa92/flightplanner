@@ -1,16 +1,26 @@
-package myproject.flightplanner;
+package myproject.flightplanner.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class AirField {
+public class Airport {
 
     private String name;
+    private String description;
+    private String agency;
 
     private Map<String, Flight> flights = new HashMap<>( );
-
     public Map<String, Flight> getFlights() {
         return flights;
+    }
+
+    public Airport(){ }
+
+    public Airport(String name, String description, String agency){
+        this.name = name;
+        this.description = description;
+        this.agency = agency;
     }
 
     public String getName() throws NoNameGivenForAirfieldException {

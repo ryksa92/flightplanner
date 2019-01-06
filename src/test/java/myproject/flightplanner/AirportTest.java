@@ -1,13 +1,16 @@
 package myproject.flightplanner;
-
+/*ort myproject.flightplanner.model.Airport;
+import myproject.flightplanner.model.Flight;
+import myproject.flightplanner.model.NoCodeGivenForFlightException;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
-public class AirFieldTest {
+
+public class AirportTest {
 
     @Test (expected = NoCodeGivenForFlightException.class)
     public void CheckAirfieldIsEmptyOfFlights_NoCode() throws NoCodeGivenForFlightException{
-        AirField airfield = new AirField( );
+        Airport airfield = new Airport( );
 
         Flight flight = new Flight();
         airfield.addFlight(flight);
@@ -17,7 +20,7 @@ public class AirFieldTest {
 
     @Test
     public void CheckAirfieldIsEmptyOfFlights_WithCode() throws NoCodeGivenForFlightException{
-        AirField airfield = new AirField( );
+        Airport airfield = new Airport( );
         airfield.setName("PC");
 
         Flight flight1 = new Flight();
@@ -30,7 +33,7 @@ public class AirFieldTest {
 
     @Test (expected = NoCodeGivenForFlightException.class)
     public void MultipleAirfieldWithAssignedFlightsTest_NoCode() throws NoCodeGivenForFlightException{
-        AirField airfield = new AirField( );
+        Airport airfield = new Airport( );
         Flight flight1 = new Flight();
         Flight flight2 = new Flight();
 
@@ -42,9 +45,9 @@ public class AirFieldTest {
 
     @Test (expected = NoCodeGivenForFlightException.class)
     public void MultipleAirfieldWithAssignedFlightsTest_WithCode() throws NoCodeGivenForFlightException{
-        AirField airfield1 = new AirField( );
+        Airport airfield1 = new Airport( );
         Flight flight1 = new Flight();
-        AirField airfield2 = new AirField( );
+        Airport airfield2 = new Airport( );
         Flight flight2 = new Flight();
 
         airfield1.addFlight(flight1);
@@ -56,7 +59,7 @@ public class AirFieldTest {
 
     @Test
     public void AirfieldPrintFlightsTest() throws NoCodeGivenForFlightException{
-        AirField airfield = new AirField( );
+        Airport airfield = new Airport( );
         Flight flight1 = new Flight();
         flight1.setCode("C");
         Flight flight2 = new Flight();
@@ -66,3 +69,4 @@ public class AirFieldTest {
         airfield.addFlight(flight2);
     }
 }
+*/

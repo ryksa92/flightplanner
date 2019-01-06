@@ -27,7 +27,7 @@ public class Main {
     /*  private static final Logger logger = Logger.getLogger(Main.class.getName( ));
         private static final Logger rootLogger = LogManager.getLogManager( ).getLogger("");
 
-        private static Map<String, AirField> airfields = new HashMap<>( );
+        private static Map<String, Airport> airfields = new HashMap<>( );
         private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         private static final String PARSET_MESSAGE = "$$$ Declared parameter(s) have been set successfully! $$$";
         private static final String INTROMESSAGE = "Please create an Airfield first! then assign a flight, passengers, crew members to it!";
@@ -121,7 +121,7 @@ public class Main {
         }
 
         private static boolean isAllFlightsMapEmpty () {
-            for (Map.Entry<String, AirField> airFieldEntry : airfields.entrySet( )) {
+            for (Map.Entry<String, Airport> airFieldEntry : airfields.entrySet( )) {
                 if (!airFieldEntry.getValue( ).isFlightsEmpty( )) {
                     return false;
                 }
@@ -132,7 +132,7 @@ public class Main {
         private static void getListAirfields () {
             System.out.println( );
             System.out.println("Airfields: ");
-            for (Map.Entry<String, AirField> airfieldEntry : airfields.entrySet( )) {
+            for (Map.Entry<String, Airport> airfieldEntry : airfields.entrySet( )) {
                 System.out.printf("[%s] ", airfieldEntry.getKey( ));
             }
         }
@@ -142,7 +142,7 @@ public class Main {
             System.out.print("Airfield's name (any character): ");
             String nameAirfield = reader.readLine( );
 
-            AirField airfield = new AirField( );
+            Airport airfield = new Airport( );
             try {
                 airfield.setName(nameAirfield);
             } catch (NullPointerException error) {
@@ -217,7 +217,7 @@ public class Main {
                 System.out.println( );
                 String assignPassengerToFlightCode = reader.readLine( );
 
-                for (Map.Entry<String, AirField> airfieldEntry : airfields.entrySet( )) {
+                for (Map.Entry<String, Airport> airfieldEntry : airfields.entrySet( )) {
                     if (airfieldEntry.getValue( ).getFlights( ).containsKey(assignPassengerToFlightCode)) {
                         try {
                             airfieldEntry.getValue( ).getFlights( ).get(assignPassengerToFlightCode).addPeople(passenger);
@@ -235,7 +235,7 @@ public class Main {
 
         private static void printAvailableFlights () {
             System.out.println("Choose an initiated Flight for the Passenger by the code of the Flight!");
-            for (Map.Entry<String, AirField> airfieldEntry : airfields.entrySet( )) {
+            for (Map.Entry<String, Airport> airfieldEntry : airfields.entrySet( )) {
                 try {
                     airfieldEntry.getValue( ).printFlights( );
                 } catch (NoCodeGivenForFlightException error) {
@@ -277,7 +277,7 @@ public class Main {
 
             boolean looperAssignCrew = true;
             while (looperAssignCrew) {
-                for (Map.Entry<String, AirField> airfieldEntry : airfields.entrySet( )) {
+                for (Map.Entry<String, Airport> airfieldEntry : airfields.entrySet( )) {
                     try {
                         airfieldEntry.getValue( ).printFlights( );
                     } catch (NoCodeGivenForFlightException error) {
@@ -286,7 +286,7 @@ public class Main {
                 }
                 System.out.println( );
                 String assignCrewMemberToFlightCode = reader.readLine( );
-                for (Map.Entry<String, AirField> airfieldEntry : airfields.entrySet( )) {
+                for (Map.Entry<String, Airport> airfieldEntry : airfields.entrySet( )) {
                     if (airfieldEntry.getValue( ).getFlights( ).containsKey(assignCrewMemberToFlightCode)) {
                         try {
                             airfieldEntry.getValue( ).getFlights( ).get(assignCrewMemberToFlightCode).addPeople(crewMember);
@@ -348,7 +348,7 @@ public class Main {
         }
 
         private static void getDatabaseList () {
-            for (Map.Entry<String, AirField> airfieldEntry : airfields.entrySet( )) {
+            for (Map.Entry<String, Airport> airfieldEntry : airfields.entrySet( )) {
                 for (Map.Entry<String, Flight> flightEntry : airfieldEntry.getValue( ).getFlights( ).entrySet( )) {
                     System.out.println( );
                     System.out.println("----##### The FlightPlanner DataBase #####----");
@@ -356,7 +356,7 @@ public class Main {
                     System.out.println( );
                 }
             }
-            for (Map.Entry<String, AirField> airfieldEntry : airfields.entrySet( )) {
+            for (Map.Entry<String, Airport> airfieldEntry : airfields.entrySet( )) {
                 System.out.println( );
                 try {
                     System.out.println("[Airfield : " + airfieldEntry.getValue( ).getName( ) + "]");

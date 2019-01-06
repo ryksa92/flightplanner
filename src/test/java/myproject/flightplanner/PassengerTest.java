@@ -1,5 +1,6 @@
 package myproject.flightplanner;
-
+/*
+import myproject.flightplanner.model.Passenger;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
@@ -20,3 +21,4 @@ public class PassengerTest {
     }
 
 }
+*/

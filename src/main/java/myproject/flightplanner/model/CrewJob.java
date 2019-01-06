@@ -1,4 +1,4 @@
-package myproject.flightplanner;
+package myproject.flightplanner.model;
 
 public enum CrewJob {
     PILOT ("Pilot"),

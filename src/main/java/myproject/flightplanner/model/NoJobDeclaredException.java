@@ -1,4 +1,4 @@
-package myproject.flightplanner;
+package myproject.flightplanner.model;
 
 class NoJobDeclaredException extends Exception {
 

@@ -1,5 +1,7 @@
 package myproject.flightplanner;
-
+/*
+import myproject.flightplanner.model.Crew;
+import myproject.flightplanner.model.CrewJob;
 import org.junit.Test;
 import static junit.framework.TestCase.assertEquals;
 
@@ -20,6 +22,5 @@ public class CrewTest {
 
         assertEquals("Crew Job is not declared for the crew member!", CrewJob.PILOT, crew1.getCrewJob());
     }
-
-
 }
+*/
