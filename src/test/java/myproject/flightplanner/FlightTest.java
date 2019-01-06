@@ -1,6 +1,9 @@
 package myproject.flightplanner;
-
-import org.junit.Before;
+/*
+import myproject.flightplanner.model.Crew;
+import myproject.flightplanner.model.Flight;
+import myproject.flightplanner.model.NoNameGivenForPersonException;
+import myproject.flightplanner.model.Passenger;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -47,5 +50,5 @@ public class FlightTest {
 
         assertEquals(1, flight.getNumbersOfCrew( ));
     }
-
 }
+*/

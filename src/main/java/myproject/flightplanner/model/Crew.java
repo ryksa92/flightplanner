@@ -1,4 +1,4 @@
-package myproject.flightplanner;
+package myproject.flightplanner.model;
 
 public class Crew extends Person {
 

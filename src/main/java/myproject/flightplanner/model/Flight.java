@@ -1,4 +1,4 @@
-package myproject.flightplanner;
+package myproject.flightplanner.model;
 
 import java.util.HashMap;
 import java.util.Map;
