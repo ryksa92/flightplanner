@@ -23,7 +23,6 @@ public class Main {
 }
 
 // Basic JAVA code implementation. ToDo: first, convert this code to SpringBoot web application!
-    
         /*  private static final Logger logger = Logger.getLogger(Main.class.getName( ));
         private static final Logger rootLogger = LogManager.getLogManager( ).getLogger("");
 
@@ -150,7 +149,7 @@ public class Main {
             }
             try {
                 airfields.put(airfield.getName( ), airfield);
-            } catch (NoNameGivenForAirfieldException error) {
+            } catch (NoNameGivenForAirportException error) {
                 error.getStackTrace( );
             }
             System.out.println( );
@@ -160,7 +159,7 @@ public class Main {
                 try {
                     System.out.printf("The Airfield name of %s is already taken! Define a new one!", airfields.get(nameAirfield).getName( ));
                     System.out.println( );
-                } catch (NoNameGivenForAirfieldException error) {
+                } catch (NoNameGivenForAirportException error) {
                     error.getStackTrace( );
                 }
             }
@@ -188,7 +187,7 @@ public class Main {
                         try {
                             airfields.get(assignedAirfieldName).addFlight(flight);
                             System.out.printf("$$$ [Flight:%s] has been assigned to [Airport:%s]! $$$", flight.getCode( ), airfields.get(assignedAirfieldName).getName( ));
-                        } catch (NoCodeGivenForFlightException | NoNameGivenForAirfieldException error) {
+                        } catch (NoCodeGivenForFlightException | NoNameGivenForAirportException error) {
                             error.getStackTrace( );
                         }
                         looperFlight = false;
@@ -360,7 +359,7 @@ public class Main {
                 System.out.println( );
                 try {
                     System.out.println("[Airfield : " + airfieldEntry.getValue( ).getName( ) + "]");
-                } catch (NoNameGivenForAirfieldException error) {
+                } catch (NoNameGivenForAirportException error) {
                     error.getStackTrace( );
                 }
 

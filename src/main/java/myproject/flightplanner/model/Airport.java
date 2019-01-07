@@ -1,31 +1,54 @@
 package myproject.flightplanner.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Airport {
 
+    private Integer id;
     private String name;
-    private String description;
     private String agency;
 
-    private Map<String, Flight> flights = new HashMap<>( );
-    public Map<String, Flight> getFlights() {
-        return flights;
+    private Map<String, Flight> flights = new HashMap<>();
+
+    public Integer getId() throws NoIDGivenForAirportException{
+        if (id.toString().length() < 4 || id.toString().isEmpty()){
+            throw new NoIDGivenForAirportException("The given ID is too short for an Airport!");
+        }
+        return id;
     }
 
-    public Airport(){ }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public Airport(String name, String description, String agency){
-        this.name = name;
-        this.description = description;
+    public String getAgency() throws NoAgencyGivenForAirportException {
+        if (agency.isEmpty()){
+            throw new NoAgencyGivenForAirportException("No agency defined for the Airport!");
+        }
+        return agency;
+    }
+
+    public void setAgency(String agency) {
         this.agency = agency;
     }
 
-    public String getName() throws NoNameGivenForAirfieldException {
+    public void setFlights(Map<String, Flight> flights) {
+        this.flights = flights;
+    }
+
+    public Airport(){
+
+    }
+    public Airport(Integer id, String name, String agency){
+        this.id = id;
+        this.name = name;
+        this.agency = agency;
+    }
+
+    public String getName() throws NoNameGivenForAirportException {
         if (name == null || name.isEmpty( )) {
-            throw new NoNameGivenForAirfieldException("No name airfield");
+            throw new NoNameGivenForAirportException("No name airfield");
         }
         return name;
     }
@@ -54,7 +77,7 @@ public class Airport {
         }
     }
 
-    public String printFlightsList() throws NoCodeGivenForFlightException {
+    private String printFlightsList() throws NoCodeGivenForFlightException {
         if (flights.isEmpty( )) {
             throw new NoCodeGivenForFlightException("No flights declared.");
         }
