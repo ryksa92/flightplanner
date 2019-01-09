@@ -64,19 +64,6 @@ public class Airport {
         flights.put(flight.getCode( ), flight);
     }
 
-    public void printFlights() throws NoCodeGivenForFlightException {
-        if (flights.isEmpty( )) {
-            throw new NoCodeGivenForFlightException("No flights declared.");
-        }
-
-        System.out.println( );
-        System.out.println("[Airport : " + name + "]");
-        System.out.print(" - Flights: ");
-        for (Map.Entry<String, Flight> flight : flights.entrySet( )) {
-            System.out.print(flight.getKey( ) + ",");
-        }
-    }
-
     private String printFlightsList() throws NoCodeGivenForFlightException {
         if (flights.isEmpty( )) {
             throw new NoCodeGivenForFlightException("No flights declared.");

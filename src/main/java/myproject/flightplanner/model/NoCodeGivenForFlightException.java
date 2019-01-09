@@ -1,6 +1,6 @@
 package myproject.flightplanner.model;
 
-class NoCodeGivenForFlightException extends Exception{
+public class NoCodeGivenForFlightException extends Exception{
     NoCodeGivenForFlightException(String message) {
         super(message);
     }

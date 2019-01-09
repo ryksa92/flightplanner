@@ -1,7 +1,9 @@
 package myproject.flightplanner.repository;
 
 import myproject.flightplanner.model.Airport;
+import myproject.flightplanner.model.Flight;
 import myproject.flightplanner.model.NoAgencyGivenForAirportException;
+import myproject.flightplanner.model.NoCodeGivenForFlightException;
 import myproject.flightplanner.model.NoIDGivenForAirportException;
 import myproject.flightplanner.model.NoNameGivenForAirportException;
 import org.springframework.stereotype.Repository;
@@ -15,39 +17,37 @@ import java.util.Map;
 @Repository
 public class AirportRepository {
 
-    private static Map<Integer, Airport> airports = new HashMap<>();
+    private static Map<Integer, Airport> airports = new HashMap<>( );
 
     static {
-        airports.put(1236, new Airport(1236, "Ferihegy", "Budapest Airs"));
-        airports.put(5691, new Airport(5691, "Eiffel", "Paris Inc."));
-        airports.put(6370, new Airport(6370, "Meri", "Chinatown AG"));
+        airports.put(9999, new Airport(9999, "Sample", "Sample Airs"));
     }
 
-    public Collection<Airport> getAllAirport(){
-        return this.airports.values();
+    public Collection<Airport> getAllAirport() {
+        return airports.values( );
     }
 
-    public Airport getAirportsByName(Integer id){
-        return this.airports.get(id);
+    public Airport getAirportsByID(Integer id) {
+        return airports.get(id);
     }
 
-    public void removeAirportByName(Integer id) {
-        this.airports.remove(id);
+    public void removeAirportByID(Integer id) {
+        airports.remove(id);
     }
 
-    public void updateAirport(Airport airport) throws Exception{
+    public void modifyAirport(Airport airport) throws NoIDGivenForAirportException, NoNameGivenForAirportException, NoAgencyGivenForAirportException {
 
-            Airport updatedAirport = airports.get(airport.getId());
-            updatedAirport.setName(airport.getName());
-            updatedAirport.setAgency(airport.getAgency());
-            airports.put(airport.getId( ), airport);
+        Airport updatedAirport = airports.get(airport.getId( ));
+        updatedAirport.setName(airport.getName( ));
+        updatedAirport.setAgency(airport.getAgency( ));
+        airports.put(airport.getId( ), airport);
     }
 
-    public void createAirport(Airport airport) throws Exception{
-        Airport newAirport = new Airport();
-        newAirport.setId(airport.getId());
-        newAirport.setName(airport.getName());
-        newAirport.setAgency(airport.getAgency());
-        airports.put(airport.getId(), airport);
+    public void createAirport(Airport airport) throws NoIDGivenForAirportException, NoNameGivenForAirportException, NoAgencyGivenForAirportException {
+        Airport newAirport = new Airport( );
+        newAirport.setId(airport.getId( ));
+        newAirport.setName(airport.getName( ));
+        newAirport.setAgency(airport.getAgency( ));
+        airports.put(airport.getId( ), airport);
     }
 }

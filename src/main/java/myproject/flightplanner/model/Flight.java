@@ -6,15 +6,48 @@ import java.util.Map;
 public class Flight {
 
     private String code;
+    private String regAirport;
+    private Integer numbersOfCrew;
+    private Integer numbersOfPassengers;
+
     private HashMap<String, Person> people = new HashMap<>( );
 
+    public Flight(){};
+    public Flight(String code, String regAirport, Integer numbersOfCrew, Integer numbersOfPassengers){
+        this.code = code;
+        this.regAirport = regAirport;
+        this.numbersOfCrew = numbersOfCrew;
+        this.numbersOfPassengers = numbersOfPassengers;
+    };
 
-    public String getCode() {
+    public String getCode() throws NoCodeGivenForFlightException{
+        if (code == null){
+            throw new NoCodeGivenForFlightException("No code given for Flight! Assign one!");
+        }
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getRegAirport() throws NoRegAirportForFlightException{
+        if (regAirport == null) {
+            throw new NoRegAirportForFlightException("This Flight is not registered to any Airport.");
+        }
+        return regAirport;
+    }
+
+    public void setRegAirport(String regAirport) {
+        this.regAirport = regAirport;
+    }
+
+    public void setNumbersOfCrew(Integer numbersOfCrew){
+        this.numbersOfCrew = numbersOfCrew;
+    }
+
+    public void setNumbersOfPassengers(Integer numbersOfPassengers){
+        this.numbersOfPassengers = numbersOfPassengers;
     }
 
     public void addPeople(Person person) throws NoNameGivenForPersonException {
@@ -54,10 +87,9 @@ public class Flight {
 
             if (personEntry.getValue( ).getClass( ).isAssignableFrom(Crew.class)) {
                 Crew crew = (Crew) personEntry.getValue( );
-                if (crew.getCrewJob() == null){
+                if (crew.getCrewJob( ) == null) {
                     throw new NoJobDeclaredException("No Crew job declared");
-                }
-                else {
+                } else {
                     System.out.print(crew.getName( ) + " Job:" + crew.getCrewJob( ) + ", ");
                 }
             }
