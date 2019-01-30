@@ -17,22 +17,4 @@ public class MainController {
         LOGGER.info("FlightPlanner Server Introduction initiated!");
         return "Greetings from SpringBoot!";
     }
-
-    @RequestMapping("/airfields")
-    public String listAirfields() {
-        LOGGER.info("Airfield list created!");
-        return "Airfield list is : ";
-    }
-
-    @RequestMapping("/airfields/flights")
-    public String listFlights(){
-        LOGGER.info("Flight list created!");
-        return "Flight list is: ";
-    }
-
-    @PostMapping(path = "/add-airfield")
-    public void addAirfield(@RequestBody String requestBody) {
-        LOGGER.info(requestBody);
-    }
-
 }

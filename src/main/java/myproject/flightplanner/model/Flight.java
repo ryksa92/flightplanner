@@ -1,27 +1,36 @@
 package myproject.flightplanner.model;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Flight {
 
-    private String code;
-    private String regAirport;
-    private Integer numbersOfCrew;
-    private Integer numbersOfPassengers;
+    @NotNull
+    @Size(min = 4)
+    private String code = null;
+
+    @NotNull
+    @Size(min = 4)
+    private String regAirport = null;
+    private int numbersOfCrew = 0;
+    private int numbersOfPassengers = 0;
 
     private HashMap<String, Person> people = new HashMap<>( );
 
-    public Flight(){};
-    public Flight(String code, String regAirport, Integer numbersOfCrew, Integer numbersOfPassengers){
+    public Flight() {
+    }
+
+    public Flight(String code, String regAirport, int numbersOfCrew, int numbersOfPassengers) {
         this.code = code;
         this.regAirport = regAirport;
         this.numbersOfCrew = numbersOfCrew;
         this.numbersOfPassengers = numbersOfPassengers;
-    };
+    }
 
-    public String getCode() throws NoCodeGivenForFlightException{
-        if (code == null){
+    public String getCode() throws NoCodeGivenForFlightException {
+        if (code == null) {
             throw new NoCodeGivenForFlightException("No code given for Flight! Assign one!");
         }
         return code;
@@ -31,7 +40,7 @@ public class Flight {
         this.code = code;
     }
 
-    public String getRegAirport() throws NoRegAirportForFlightException{
+    public String getRegAirport() throws NoRegAirportForFlightException {
         if (regAirport == null) {
             throw new NoRegAirportForFlightException("This Flight is not registered to any Airport.");
         }
@@ -42,11 +51,11 @@ public class Flight {
         this.regAirport = regAirport;
     }
 
-    public void setNumbersOfCrew(Integer numbersOfCrew){
+    public void setNumbersOfCrew(int numbersOfCrew) {
         this.numbersOfCrew = numbersOfCrew;
     }
 
-    public void setNumbersOfPassengers(Integer numbersOfPassengers){
+    public void setNumbersOfPassengers(int numbersOfPassengers) {
         this.numbersOfPassengers = numbersOfPassengers;
     }
 
@@ -76,35 +85,4 @@ public class Flight {
         }
         return sizeOfPassenger;
     }
-
-    public void printCrew() throws NoCrewDeclaredException, NoJobDeclaredException {
-        System.out.print(" -- Crew members: ");
-
-        for (Map.Entry<String, Person> personEntry : people.entrySet( )) {
-            if (personEntry.getKey( ).isEmpty( )) {
-                throw new NoCrewDeclaredException("No Crew declared");
-            }
-
-            if (personEntry.getValue( ).getClass( ).isAssignableFrom(Crew.class)) {
-                Crew crew = (Crew) personEntry.getValue( );
-                if (crew.getCrewJob( ) == null) {
-                    throw new NoJobDeclaredException("No Crew job declared");
-                } else {
-                    System.out.print(crew.getName( ) + " Job:" + crew.getCrewJob( ) + ", ");
-                }
-            }
-
-        }
-    }
-
-    public void printPassengers() {
-        System.out.print(" -- Passengers: ");
-        for (Map.Entry<String, Person> personEntry : people.entrySet( )) {
-            if (personEntry.getValue( ).getClass( ).isAssignableFrom(Passenger.class)) {
-                Passenger passenger = (Passenger) personEntry.getValue( );
-                System.out.print(passenger.getName( ) + passenger.getCheckedBagsInKg( ));
-            }
-        }
-    }
 }
-

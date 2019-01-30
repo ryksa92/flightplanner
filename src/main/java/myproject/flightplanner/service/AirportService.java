@@ -1,8 +1,9 @@
 package myproject.flightplanner.service;
 
 import myproject.flightplanner.model.Airport;
-import myproject.flightplanner.model.NoAgencyGivenForAirportException;
-import myproject.flightplanner.model.NoIDGivenForAirportException;
+import myproject.flightplanner.model.Flight;
+import myproject.flightplanner.model.NoCodeGivenForFlightException;
+import myproject.flightplanner.model.NoFlightRegisteredException;
 import myproject.flightplanner.model.NoNameGivenForAirportException;
 import myproject.flightplanner.repository.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,23 @@ public class AirportService {
         return airportRepository.getAllAirport( );
     }
 
-    public Airport getAirportsByID(Integer id) {
-        return airportRepository.getAirportsByID(id);
+    public Airport getAirportByName(String name) {
+        return airportRepository.getAirportByName(name);
     }
 
-    public void removeAirportByID(Integer id) {
-        this.airportRepository.removeAirportByID(id);
+    public void removeAirportByName(String name) {
+        this.airportRepository.removeAirportByName(name);
     }
 
-    public void modifyAirport(Airport airport) throws NoIDGivenForAirportException, NoNameGivenForAirportException, NoAgencyGivenForAirportException {
-        this.airportRepository.modifyAirport(airport);
-    }
-
-    public void createAirport(Airport airport) throws NoIDGivenForAirportException, NoNameGivenForAirportException, NoAgencyGivenForAirportException {
+    public void createAirport(Airport airport) throws NoNameGivenForAirportException{
         this.airportRepository.createAirport(airport);
     }
+    public void modifyAirport(Airport airport, String name) throws NoNameGivenForAirportException {
+        this.airportRepository.modifyAirport(airport, name);
+    }
 
-}
+
+/*    public Flight getAirportFlights(String name) throws NoFlightRegisteredException, NoCodeGivenForFlightException{
+       return airportRepository.getAirportFlights(name);
+    }
+*/}

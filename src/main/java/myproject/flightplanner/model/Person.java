@@ -1,14 +1,22 @@
 package myproject.flightplanner.model;
 
-public abstract class Person {
+public class Person {
 
     private String name;
 
-    public final String getName() {
-        return name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public final void setName(String name) {
+    Person(){
+
+    }
+
+    Person(String name) {
         this.name = name;
+    }
+
+    public final String getName() {
+        return name;
     }
 }

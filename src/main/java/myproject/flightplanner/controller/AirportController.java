@@ -1,22 +1,21 @@
 package myproject.flightplanner.controller;
 
 import myproject.flightplanner.model.Airport;
-import myproject.flightplanner.model.NoAgencyGivenForAirportException;
-import myproject.flightplanner.model.NoIDGivenForAirportException;
 import myproject.flightplanner.model.NoNameGivenForAirportException;
 import myproject.flightplanner.service.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
+import javax.validation.Valid;
 import java.util.Collection;
 
 @RestController
@@ -31,23 +30,28 @@ public class AirportController {
         return airportService.getAllAirport( );
     }
 
-    @GetMapping(value = "/{id}")
-    public Airport getAirportByID(@PathVariable("id") Integer id) {
-        return airportService.getAirportsByID(id);
+    @GetMapping(value = "/{name}")
+    public Airport getAirportByName(@PathVariable("name") String name) {
+        return airportService.getAirportByName(name);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void removeAirportByID(@PathVariable("id") Integer id) {
-        airportService.removeAirportByID(id);
+    @DeleteMapping(value = "/{name}")
+    public void removeAirportByID(@PathVariable("name") String name) {
+        airportService.removeAirportByName(name);
     }
 
-    @PutMapping(value = "/modify", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateAirport(@RequestBody Airport airport) throws NoIDGivenForAirportException, NoNameGivenForAirportException, NoAgencyGivenForAirportException{
-        airportService.modifyAirport(airport);
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String createAirport(@Valid @RequestBody Airport airport, BindingResult bindingResult) throws NoNameGivenForAirportException{
+
+        if (bindingResult.hasErrors()){
+            return "Invalid length of [name], minimum 4 characters.";
+        }
+        else airportService.createAirport(airport);
+        return null;
     }
 
-    @PutMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createAirport(@RequestBody Airport airport) throws NoIDGivenForAirportException, NoNameGivenForAirportException, NoAgencyGivenForAirportException {
-        airportService.createAirport(airport);
+    @PutMapping(value = "/modify/{name}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void modifyAirport(@RequestBody Airport airport, @PathVariable String name) throws NoNameGivenForAirportException{
+        airportService.modifyAirport(airport, name);
     }
 }
